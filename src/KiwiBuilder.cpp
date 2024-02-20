@@ -716,15 +716,12 @@ KiwiBuilder::KiwiBuilder(const ModelBuildArgs& args)
 	}
 
 	vector<pair<uint16_t, uint16_t>> bigramList;
-	cout << "here D" << endl;
 	utils::ThreadPool pool;
 	if (args.numWorkers > 1)
 	{
-		cout << "here E" << endl;
 		pool.~ThreadPool();
 		new (&pool) utils::ThreadPool{ args.numWorkers };
 	}
-	cout << "here F" << endl;
 	auto cntNodes = utils::count(sents.begin(), sents.end(), args.lmMinCnt, 1, args.lmOrder, (args.numWorkers > 1 ? &pool : nullptr), &bigramList, args.useLmTagHistory ? &historyTx : nullptr);
 	cntNodes.root().getNext(lmVocabSize)->val /= 2;
 	langMdl.knlm = lm::KnLangModelBase::create(lm::KnLangModelBase::build(
@@ -1698,13 +1695,10 @@ Kiwi KiwiBuilder::build(const TypoTransformer& typos, float typoCostThreshold) c
 	ret.morphemes.reserve(morphemes.size() + combinedMorphemes.size());
 	ret.combiningRule = combiningRule;
 	ret.integrateAllomorph = !!(options & BuildOption::integrateAllomorph);
-	cout << "here G" << endl;
 	if (numThreads >= 1)
 	{
-		cout << "here H" << endl;
 		ret.pool = make_unique<utils::ThreadPool>(numThreads);
 	}
-	cout << "here I" << endl;
 
 	for (auto& f : forms)
 	{
