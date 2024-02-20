@@ -142,9 +142,9 @@ else()
 endif()
 
 if ("${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
-  set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --embed-file data -s TOTAL_MEMORY=2gb" )
-  set ( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --embed-file data -s TOTAL_MEMORY=2gb" )
-  set ( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} --embed-file data -s TOTAL_MEMORY=2gb")
+  set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb" )
+  set ( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb" )
+  set ( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb")
 endif()
 
 if (KIWI_CPU_ARCH MATCHES "x86_64" AND NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
