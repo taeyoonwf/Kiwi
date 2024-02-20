@@ -11,26 +11,20 @@ namespace kiwi
 {
 	ifstream& openFile(ifstream& f, const string& filePath, ios_base::openmode mode)
 	{
-		cout << "here0" << endl;
 		auto exc = f.exceptions();
-		cout << "here1" << endl;
 		f.exceptions(ifstream::failbit | ifstream::badbit);
-		cout << "here2" << endl;
 		try
 		{
-		cout << "here3 " << filePath << endl;
-//#if defined(_WIN32) || defined(_WIN64)
-//			f.open((const wchar_t*)utf8To16(filePath).c_str(), mode);
-//#else
+#if defined(_WIN32) || defined(_WIN64)
+			f.open((const wchar_t*)utf8To16(filePath).c_str(), mode);
+#else
 			f.open(filePath, mode);
-//#endif
+#endif
 		}
 		catch (const ios_base::failure&)
 		{
-			cout << "here4" << endl;
 			throw IOException{ "Cannot open file : " + filePath };
 		}
-			cout << "here5" << endl;
 		f.exceptions(exc);
 		return f;
 	}
