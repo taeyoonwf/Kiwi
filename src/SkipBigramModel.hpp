@@ -95,7 +95,7 @@ namespace kiwi
 				return !!vocabValidness[k];
 			}
 
-			//float evaluate(const KeyType* history, size_t cnt, KeyType next, float base) const;
+			float evaluate(const KeyType* history, size_t cnt, KeyType next, float base) const;
 		};
 
 		template<ArchType archType>

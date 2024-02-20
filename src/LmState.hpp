@@ -87,7 +87,7 @@ namespace kiwi
 			{
 				if (ll > -13)
 				{
-					//ll = sbg.evaluate(history.data(), windowSize, next, ll);
+					ll = sbg.evaluate(history.data(), windowSize, next, ll);
 				}
 				history[historyPos] = next;
 				historyPos = (historyPos + 1) % windowSize;

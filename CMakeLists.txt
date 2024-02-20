@@ -147,7 +147,7 @@ if ("${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
   set ( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} --embed-file data -s TOTAL_MEMORY=2gb")
 endif()
 
-if (KIWI_CPU_ARCH MATCHES "x86_64")
+if (KIWI_CPU_ARCH MATCHES "x86_64" AND NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
   message("Compiling for x86_64")
   set( CORE_SRCS 
     ${CORE_SRCS}

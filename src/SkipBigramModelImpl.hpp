@@ -44,7 +44,7 @@ namespace kiwi
 			return std::log(op.redsumf(sum)) + op.firstf(pmax);
 		}
 
-		/*template<ArchType arch, class KeyType, size_t windowSize>
+		template<ArchType arch, class KeyType, size_t windowSize>
 		float SkipBigramModel<arch, KeyType, windowSize>::evaluate(const KeyType* history, size_t cnt, KeyType next, float base) const
 		{
 			if (!cnt) return base;
@@ -71,6 +71,6 @@ namespace kiwi
 				}
 			}
 			return LogExpSum<arch>{}(arr, std::integral_constant<size_t, windowSize * 2>{}) - logWindowSize;
-		} */
+		}
 	}
 }
