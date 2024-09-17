@@ -12,6 +12,10 @@ option(KIWI_BUILD_TEST  "Build Test sets" ON)
 option(KIWI_JAVA_BINDING  "Build Java binding" OFF)
 set(KIWI_CPU_ARCH "" CACHE STRING "Set architecture type for macOS")
 
+if ("${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
+  set(KIWI_USE_CPUINFO OFF)
+endif()
+
 if (NOT CMAKE_BUILD_TYPE)
   if ("${CMAKE_BINARY_DIR}" MATCHES ".*(D|d)ebug$")
     message(STATUS "No build type selected, default to: Debug")
@@ -137,7 +141,13 @@ else()
   set ( CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELEASE}" )
 endif()
 
-if (KIWI_CPU_ARCH MATCHES "x86_64")
+if ("${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
+  set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb" )
+  set ( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb" )
+  set ( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} --embed-file ../ModelGenerator --embed-file ../eval_data -s TOTAL_MEMORY=2gb")
+endif()
+
+if (KIWI_CPU_ARCH MATCHES "x86_64" AND NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Emscripten")
   message("Compiling for x86_64")
   set( CORE_SRCS 
     ${CORE_SRCS}

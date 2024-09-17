@@ -17,7 +17,7 @@ int doEvaluate(const string& modelPath, const string& output, const vector<strin
 	try
 	{
 		tutils::Timer timer;
-		Kiwi kw = KiwiBuilder{ modelPath, 1, BuildOption::default_, useSBG }.build(
+		Kiwi kw = KiwiBuilder{ modelPath, 0, BuildOption::default_, useSBG }.build(
 			typoCostWeight > 0 ? basicTypoSet : withoutTypo
 		);
 		if (typoCostWeight > 0) kw.setTypoCostWeight(typoCostWeight);
@@ -25,7 +25,7 @@ int doEvaluate(const string& modelPath, const string& output, const vector<strin
 		cout << "Loading Time : " << timer.getElapsed() << " ms" << endl;
 		cout << "ArchType : " << archToStr(kw.archType()) << endl;
 		cout << "LM Size : " << (kw.getKnLM()->getMemory().size() / 1024. / 1024.) << " MB" << endl;
-		cout << "Mem Usage : " << (tutils::getCurrentPhysicalMemoryUsage() / 1024.) << " MB\n" << endl;
+		//cout << "Mem Usage : " << (tutils::getCurrentPhysicalMemoryUsage() / 1024.) << " MB\n" << endl;
 		
 		double avgMicro = 0, avgMacro = 0;
 		double cnt = 0;

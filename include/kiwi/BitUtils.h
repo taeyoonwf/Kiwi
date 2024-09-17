@@ -19,7 +19,7 @@ namespace kiwi
 {
 	namespace utils
 	{
-		inline int countTrailingZeroes(uint32_t v)
+		inline int countTrailingZeroes32(uint32_t v)
 		{
 			if (v == 0)
 			{
@@ -55,12 +55,12 @@ namespace kiwi
 			_BitScanForward64(&count, v);
 			return (int)count;
 #else
-			return (uint32_t)v ? countTrailingZeroes((uint32_t)v)
-				: 32 + countTrailingZeroes((uint32_t)(v >> 32));
+			return (uint32_t)v ? countTrailingZeroes32((uint32_t)v)
+				: 32 + countTrailingZeroes32((uint32_t)(v >> 32));
 #endif
 		}
 
-		inline int countLeadingZeroes(uint32_t v)
+		inline int countLeadingZeroes32(uint32_t v)
 		{
 			if (v == 0)
 			{
@@ -104,17 +104,17 @@ namespace kiwi
 			_BitScanReverse64(&count, v);
 			return 63 - int(count);
 #else
-			return v >> 32 ? countLeadingZeroes((uint32_t)(v >> 32))
-				: 32 + countLeadingZeroes((uint32_t)v);
+			return v >> 32 ? countLeadingZeroes32((uint32_t)(v >> 32))
+				: 32 + countLeadingZeroes32((uint32_t)v);
 #endif
 		}
 
-		inline int ceilLog2(uint32_t v) { return 32 - countLeadingZeroes(v - 1); }
+		inline int ceilLog232(uint32_t v) { return 32 - countLeadingZeroes32(v - 1); }
 
 		inline int ceilLog2(uint64_t v) { return 64 - countLeadingZeroes(v - 1); }
 
 
-		inline uint32_t popcount(uint32_t v)
+		inline uint32_t popcount32(uint32_t v)
 		{
 #if defined(__GNUC__)
 			return __builtin_popcount(v);
@@ -132,7 +132,7 @@ namespace kiwi
 #elif defined(_MSC_VER) && defined(_M_X64)
 			return __popcnt64(v);
 #else
-			return popcount((uint32_t)(v & 0xFFFFFFFF)) + popcount((uint32_t)(v >> 32));
+			return popcount32((uint32_t)(v & 0xFFFFFFFF)) + popcount32((uint32_t)(v >> 32));
 #endif
 		}
 

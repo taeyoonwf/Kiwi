@@ -607,7 +607,7 @@ void KiwiBuilder::saveMorphBin(std::ostream& os) const
 }
 
 KiwiBuilder::KiwiBuilder(const string& modelPath, size_t _numThreads, BuildOption _options, bool useSBG) 
-	: detector{ modelPath, _numThreads }, options{ _options }, numThreads{ _numThreads ? _numThreads : thread::hardware_concurrency() }
+	: detector{ modelPath, _numThreads }, options{ _options }, numThreads{ 0 }
 {
 	archType = getSelectedArch(ArchType::default_);
 
@@ -747,7 +747,7 @@ namespace kiwi
 		Vector<Vector<uint32_t>> nodeBuf;
 
 	public:
-		SBDataFeeder(const RaggedVector<utils::Vid>& _sents, const lm::KnLangModelBase* _lm, size_t numThreads = 1)
+		SBDataFeeder(const RaggedVector<utils::Vid>& _sents, const lm::KnLangModelBase* _lm, size_t numThreads = 0)
 			: sents{ _sents }, lm{ _lm }, lmBuf(numThreads), nodeBuf(numThreads)
 		{
 		}
